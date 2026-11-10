@@ -1,0 +1,298 @@
+:root {
+  color-scheme: dark;
+  --accent: #ff5500;
+  --accent-hover: #ff6a1f;
+  --emerald: #10b981;
+  --surface-dark: #0c0d10;
+  --surface-card: #13151c;
+  --surface-elevated: #191c26;
+}
+
+html {
+  scroll-padding-block-start: 5.5rem;
+}
+
+body {
+  font-family: 'Plus Jakarta Sans', 'Montserrat', 'Heebo', -apple-system, BlinkMacSystemFont, sans-serif;
+  background-color: #0c0d10;
+  color: #ffffff;
+  overflow-x: clip;
+}
+
+html[dir="rtl"] body {
+  font-family: 'Heebo', 'Plus Jakarta Sans', sans-serif;
+}
+
+.font-display {
+  font-family: 'Oswald', 'Montserrat', 'Heebo', sans-serif;
+  letter-spacing: 0.01em;
+}
+
+html[dir="rtl"] .font-display {
+  font-family: 'Heebo', sans-serif;
+  letter-spacing: 0;
+}
+
+/* Signature metallic card inspired by La Briout pitch */
+.metallic-card {
+  border: 1px solid transparent;
+  background:
+    linear-gradient(#13151c, #13151c) padding-box,
+    linear-gradient(135deg, rgba(255, 255, 255, 0.28) 0%, rgba(255, 85, 0, 0.5) 38%, rgba(255, 255, 255, 0.22) 70%, rgba(255, 85, 0, 0.65) 100%) border-box;
+  box-shadow: 0 18px 44px rgba(0, 0, 0, 0.48);
+}
+
+.metallic-card-emerald {
+  border: 1px solid transparent;
+  background:
+    linear-gradient(#13151c, #13151c) padding-box,
+    linear-gradient(135deg, rgba(255, 255, 255, 0.24) 0%, rgba(16, 185, 129, 0.5) 45%, rgba(255, 255, 255, 0.2) 100%) border-box;
+  box-shadow: 0 18px 44px rgba(0, 0, 0, 0.45);
+}
+
+.brush-underline {
+  height: 6px;
+  background: linear-gradient(90deg, #ff5500 0%, #ff8800 100%);
+  border-radius: 999px;
+  transform: rotate(-0.8deg);
+  transform-origin: inline-start center;
+  box-shadow: 0 2px 14px rgba(255, 85, 0, 0.5);
+}
+
+/* Visually hidden utility keeping elements in accessibility tree */
+.visually-hidden:where(:not(:focus-within, :active)) {
+  position: absolute !important;
+  clip-path: inset(50%) !important;
+  overflow: hidden !important;
+  width: 1px !important;
+  height: 1px !important;
+  margin: -1px !important;
+  padding: 0 !important;
+  border: 0 !important;
+  white-space: nowrap !important;
+}
+
+/* Hide scrollbars cleanly on horizontal chip/tab scrollers */
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* Native Modal <dialog> scroll containment & backdrop (modern-web-guidance: dialog & light-dismiss-a-dialog) */
+dialog:modal {
+  overscroll-behavior: contain;
+}
+
+dialog::backdrop {
+  overflow: hidden;
+  overscroll-behavior: contain;
+  background-color: rgba(6, 8, 12, 0.85);
+  backdrop-filter: blur(8px);
+}
+
+/* Accessible Tabs indicator (modern-web-guidance: tabs — shape + color, never color alone, no dimension shift) */
+.showcase-tab {
+  position: relative;
+}
+
+.showcase-tab[aria-selected="true"] {
+  color: #ffffff;
+  background-color: rgba(255, 85, 0, 0.16);
+}
+
+.showcase-tab[aria-selected="true"]::after {
+  content: "";
+  position: absolute;
+  inset: auto 0.75rem 0;
+  border-block-end: 3px solid #ff5500;
+  border-radius: 999px;
+}
+
+/* Native <details> Accordion styling & progressive intrinsic animation (modern-web-guidance: accordion) */
+.faq-accordion details > summary {
+  list-style: none;
+}
+
+.faq-accordion details > summary::-webkit-details-marker {
+  display: none;
+}
+
+.faq-accordion details::details-content {
+  interpolate-size: allow-keywords;
+  overflow: clip;
+  contain: layout;
+}
+
+.faq-accordion details:not([open])::details-content {
+  block-size: 0;
+}
+
+.faq-accordion details .faq-chevron {
+  rotate: -90deg;
+}
+
+html[dir="rtl"] .faq-accordion details .faq-chevron {
+  rotate: 90deg;
+}
+
+.faq-accordion details[open] .faq-chevron {
+  rotate: 0deg;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .faq-accordion details::details-content {
+    transition: block-size 0.28s ease-in-out, content-visibility 0.28s ease-in-out, display 0.28s ease-in-out;
+    transition-behavior: allow-discrete;
+  }
+
+  .faq-accordion details .faq-chevron {
+    transition: rotate 0.2s ease;
+  }
+}
+
+/* Form validation ONLY after user interaction (modern-web-guidance: forms & validate-input-after-interaction) */
+.lead-form :is(input, textarea, select) {
+  font: inherit;
+  font-size: max(1rem, 1em);
+  min-height: 48px;
+  box-sizing: border-box;
+}
+
+@media (pointer: coarse) {
+  .lead-form :is(input, select) {
+    min-height: 52px;
+  }
+}
+
+.lead-form :is(input, textarea, select):focus-visible,
+button:focus-visible,
+a:focus-visible,
+summary:focus-visible,
+[tabindex="0"]:focus-visible {
+  outline: 2px solid #ff5500;
+  outline-offset: 2px;
+}
+
+.lead-form .field-error-msg {
+  display: none;
+}
+
+.lead-form :is(:user-invalid, .user-invalid-fallback) {
+  border-color: #f87171 !important;
+  background-color: rgba(239, 68, 68, 0.1) !important;
+}
+
+.lead-form :is(:user-invalid, .user-invalid-fallback) + .field-error-msg {
+  display: flex;
+}
+
+.lead-form :is(input:not([type="radio"]):not([type="checkbox"]), textarea):is(:user-valid, .user-valid-fallback) {
+  border-color: rgba(16, 185, 129, 0.65);
+}
+
+/* Responsive comparison table with container queries & sticky headers (modern-web-guidance: responsive-table) */
+.comparison-table-wrapper {
+  overflow: auto;
+  max-inline-size: 100%;
+  container-type: inline-size;
+}
+
+.comparison-table {
+  border-collapse: separate;
+  border-spacing: 0;
+  width: 100%;
+}
+
+.comparison-table thead {
+  position: sticky;
+  inset-block-start: 0;
+  z-index: 2;
+}
+
+.comparison-table tbody th {
+  position: sticky;
+  inset-inline-start: 0;
+  z-index: 1;
+  background-color: #13151c;
+}
+
+@container (width < 700px) {
+  .comparison-table,
+  .comparison-table thead,
+  .comparison-table tbody,
+  .comparison-table tr,
+  .comparison-table th,
+  .comparison-table td {
+    display: block;
+  }
+
+  .comparison-table thead {
+    display: none;
+  }
+
+  .comparison-table tbody tr {
+    margin-block-end: 1rem;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 1rem;
+    overflow: hidden;
+    background-color: #13151c;
+  }
+
+  .comparison-table tbody th {
+    position: static;
+    background-color: #191d28;
+    border-block-end: 1px solid rgba(255, 255, 255, 0.08);
+    padding: 0.875rem 1rem;
+  }
+
+  .comparison-table td {
+    padding: 0.75rem 1rem;
+    border-block-end: 1px solid rgba(255, 255, 255, 0.06);
+  }
+
+  .comparison-table td:last-child {
+    border-block-end: 0;
+  }
+
+  .comparison-table td:nth-child(2)::before {
+    content: var(--col-2) ": ";
+    display: block;
+    font-size: 0.72rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: #9ca3af;
+    margin-block-end: 0.2rem;
+  }
+
+  .comparison-table td:nth-child(3)::before {
+    content: var(--col-3) ": ";
+    display: block;
+    font-size: 0.72rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: #34d399;
+    margin-block-end: 0.2rem;
+  }
+
+  .comparison-table td:nth-child(4)::before {
+    content: var(--col-4) ": ";
+    display: block;
+    font-size: 0.72rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: #ff5500;
+    margin-block-end: 0.2rem;
+  }
+}
+
+/* Range slider styling for ROI calculator */
+input[type="range"].accent-slider {
+  accent-color: #ff5500;
+  cursor: pointer;
+}
